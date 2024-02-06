@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {InputComponent} from "./interfaces/interfaces";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'testBackground';
+
+  input: InputComponent =  {
+  isArray: true,
+  name: 'testName',
+  label: 'testLabel',
+    placeholder: 'testPleaceholder',
+    // value?: string,
+    // valueArr?: string[]
+}
 }

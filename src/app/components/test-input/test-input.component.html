@@ -1,15 +1,15 @@
-<div class="inputContainer" >
+<div class="inputContainer" *ngIf="inputComp" >
 
-  <div class="label">
-    Имя
+  <div class="name">
+    {{inputComp.name}}
   </div>
   <div class="input">
-    <div><input type="text" id="input" placeholder="placeholder"></div>
-    <label for="input">label</label>
+    <div><input type="text" id="input" [(ngModel)]="inputValue" [placeholder]="inputComp.placeholder || ''"></div>
+    <label for="input" *ngIf="inputComp.label">{{inputComp.label}}</label>
   </div>
 
-  <div class="button">
-    <div><button class="addTextBtn">+</button></div>
+  <div class="button" *ngIf="inputComp.isArray">
+    <div><button class="addTextBtn" (click)="addNewValue()">+</button></div>
     <div>Добавить еще</div>
   </div>
 
