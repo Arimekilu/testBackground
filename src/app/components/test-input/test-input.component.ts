@@ -65,4 +65,10 @@ export class TestInputComponent implements OnInit, ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
   }
+
+  deleteValue() {
+    if (this.inputComp?.valueArr) {
+      this.inputComp.valueArr.splice(this.inputComp.valueArr.length - 1, 1)
+    }
+  }
 }

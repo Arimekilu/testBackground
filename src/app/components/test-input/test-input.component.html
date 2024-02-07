@@ -5,21 +5,24 @@
   </div>
 
 
-  <div class="input" >
+  <div class="input">
     <div *ngFor="let value of inputComp.valueArr">
       <input class="width300" type="text" [value]="value">
     </div>
     <div class="flexRow ">
-      <input [ngClass]="{width300: inputComp.isArray, width500: !inputComp.isArray}" style="margin-right: 15px" type="text" id="input" [(ngModel)]="inputValue" [placeholder]="inputComp.placeholder || ''">
+      <input [ngClass]="{width300: inputComp.isArray, width500: !inputComp.isArray}" style="margin-right: 15px"
+             type="text" id="input" [(ngModel)]="inputValue" [placeholder]="inputComp.placeholder || ''">
       <div>
         <div class="button" *ngIf="inputComp.isArray">
-          <div>
-            <button class="deleteTextBtn" (click)="addNewValue()">+</button>
+          <div *ngIf="inputComp.valueArr?.length !== 0 ">
+            <button class="deleteTextBtn" (click)="deleteValue()">
+              +
+            </button>
           </div>
           <div>
             <button class="addTextBtn" (click)="addNewValue()">+</button>
           </div>
-          <div>Добавить еще</div>
+          <div (click)="addNewValue()">Добавить еще</div>
         </div>
       </div>
     </div>

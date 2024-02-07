@@ -4,11 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { TestInputComponent } from './components/test-input/test-input.component';
 import {FormsModule} from "@angular/forms";
+import { TestNumberComponent } from './components/test-number/test-number.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TestInputComponent
+    TestInputComponent,
+    TestNumberComponent
   ],
   imports: [
     BrowserModule,
