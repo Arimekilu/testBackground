@@ -15,6 +15,17 @@ export class AppComponent {
   label: 'testLabel',
     placeholder: 'testPleaceholder',
     // value?: string,
-    // valueArr?: string[]
+    valueArr: ['test', "test"]
 }
+
+  inputNoArr: InputComponent =  {
+    isArray: false,
+    name: 'noArrName',
+    label: 'noArrLabel',
+    placeholder: 'noArrPleaceholder',
+    // value?: string,
+    // valueArr?: string[]
+  }
+
+
 }

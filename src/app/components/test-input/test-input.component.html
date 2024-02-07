@@ -1,16 +1,29 @@
-<div class="inputContainer" *ngIf="inputComp" >
+<div class="inputContainer" *ngIf="inputComp">
 
   <div class="name">
     {{inputComp.name}}
   </div>
-  <div class="input">
-    <div><input type="text" id="input" [(ngModel)]="inputValue" [placeholder]="inputComp.placeholder || ''"></div>
-    <label for="input" *ngIf="inputComp.label">{{inputComp.label}}</label>
-  </div>
 
-  <div class="button" *ngIf="inputComp.isArray">
-    <div><button class="addTextBtn" (click)="addNewValue()">+</button></div>
-    <div>Добавить еще</div>
+
+  <div class="input" >
+    <div *ngFor="let value of inputComp.valueArr">
+      <input class="width300" type="text" [value]="value">
+    </div>
+    <div class="flexRow ">
+      <input [ngClass]="{width300: inputComp.isArray, width500: !inputComp.isArray}" style="margin-right: 15px" type="text" id="input" [(ngModel)]="inputValue" [placeholder]="inputComp.placeholder || ''">
+      <div>
+        <div class="button" *ngIf="inputComp.isArray">
+          <div>
+            <button class="deleteTextBtn" (click)="addNewValue()">+</button>
+          </div>
+          <div>
+            <button class="addTextBtn" (click)="addNewValue()">+</button>
+          </div>
+          <div>Добавить еще</div>
+        </div>
+      </div>
+    </div>
+    <label for="input" *ngIf="inputComp.label">{{inputComp.label}}</label>
   </div>
 
 
