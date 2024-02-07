@@ -51,7 +51,7 @@ body {
 }
 
 .name {
-  width: 140px;
+  min-width: 140px;
   height: 24px;
   display: flex;
   margin-right: 17px;
@@ -63,6 +63,7 @@ body {
   display: flex;
   flex-direction: column;
   margin-right: 17px;
+
   input {
     box-sizing: border-box;
     padding-left: 15px;
@@ -115,4 +116,8 @@ label {
 
 .rotate90 {
   rotate: 90deg;
+}
+
+.rotate180 {
+  rotate: 180deg;
 }

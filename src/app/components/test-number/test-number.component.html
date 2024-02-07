@@ -1,13 +1,14 @@
 <div class="inputNumberContainer">
 
-  <div class="inputNumberName"><p>name</p></div>
+  <div class="inputNumberLabel ">name</div>
 
-  <div class="inputNumberInput">
+  <div class="inputNumberInput ">
     <input type="tel" [value]="value">
-    <div>
-      <button (click)="increment()">+</button>
-      <button (click)="decrement()">-</button>
-    </div>
+  </div>
+
+  <div class="buttonBlock ">
+    <button (click)="increment()">&#9650;</button>
+    <button (click)="decrement()" class="rotate180">&#9650;</button>
   </div>
 
 
