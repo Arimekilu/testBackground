@@ -3,6 +3,10 @@
   src: url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 }
 
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
 
 body {
   width: 100%;

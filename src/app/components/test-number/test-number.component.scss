@@ -2,8 +2,53 @@
   display: flex;
   flex-direction: row;
   width: 262px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 15px;
 }
 
-.inputNumberName {
+.inputNumberLabel {
+  max-width: 140px;
+  width: 140px;
+  height: 24px;
+  display: flex;
+  margin-right: 17px;
+  padding-top: 10px;
+  align-items: flex-start;
+}
 
+.inputNumberInput {
+  margin-left: 0;
+  margin-right: 5px;
+  width: 70px;
+  input {
+    box-sizing: border-box;
+    width: 70px;
+    height: 44px;
+    border-radius: 3px;
+    border: 1px solid #C3C3C3;
+    font-family: PT Sans, sans-serif;
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: 0;
+    text-align: left;
+    padding-left: 15px;
+  }
+}
+
+.buttonBlock {
+  width: 30px;
+  display: flex;
+  flex-direction: column;
+  button {
+    box-sizing: border-box;
+    width: 30px;
+    height: 22px;
+    background: #DFDFDF;
+    border: none;
+    color: #9D9D9D;
+    border-bottom: 0.5px solid #9D9D9D;
+    margin: 0;
+    padding: 0;
+  }
 }

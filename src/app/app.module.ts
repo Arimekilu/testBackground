@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { TestInputComponent } from './components/test-input/test-input.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { TestNumberComponent } from './components/test-number/test-number.component';
 
 @NgModule({
@@ -12,10 +12,11 @@ import { TestNumberComponent } from './components/test-number/test-number.compon
     TestInputComponent,
     TestNumberComponent
   ],
-  imports: [
-    BrowserModule,
-    FormsModule
-  ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

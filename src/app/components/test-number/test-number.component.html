@@ -1,9 +1,9 @@
-<div class="inputNumberContainer">
+<div class="inputNumberContainer" *ngIf="numberInputComponent">
 
-  <div class="inputNumberLabel ">name</div>
+  <div class="inputNumberLabel ">{{numberInputComponent.name}}</div>
 
   <div class="inputNumberInput ">
-    <input type="tel" [value]="value">
+    <input type="number"  [(ngModel)]="value">
   </div>
 
   <div class="buttonBlock ">

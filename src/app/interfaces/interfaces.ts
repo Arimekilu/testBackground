@@ -6,3 +6,8 @@ export interface InputComponent {
   value?: string,
   valueArr?: string[]
 }
+
+export interface numberInputComponent {
+  name: string,
+  value?: number
+}
