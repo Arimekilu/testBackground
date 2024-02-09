@@ -5,12 +5,14 @@ import { AppComponent } from './app.component';
 import { TestInputComponent } from './components/test-input/test-input.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { TestNumberComponent } from './components/test-number/test-number.component';
+import { TestSelectComponent } from './components/test-select/test-select.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TestInputComponent,
-    TestNumberComponent
+    TestNumberComponent,
+    TestSelectComponent
   ],
     imports: [
         BrowserModule,

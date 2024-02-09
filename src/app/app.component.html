@@ -1,12 +1,3 @@
+<app-test-select></app-test-select>
 
-<!--<app-test-number></app-test-number>-->
-
-<!--<app-test-input [InputComponent]="input"></app-test-input>-->
-<!--<app-test-input [InputComponent]="inputNoArr"></app-test-input>-->
-<form [formGroup]="form">
-  <app-test-number
-    [formControlName]="testNum.name"
-    [numberInputComponent]="testNum"
-  ></app-test-number>
-  <button (click)="logData()">logData</button>
-</form>
+<app-test-number [numberInputComponent]="testNum"></app-test-number>
