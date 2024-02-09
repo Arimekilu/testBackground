@@ -1,0 +1,54 @@
+.checkBoxContainer {
+  display: flex;
+  flex-direction: row;
+  width: 641px;
+  //align-items: center;
+  justify-content: flex-start;
+  margin-top: 15px;
+  z-index: 0;
+}
+
+.checkBoxLabel {
+  width: 140px;
+  height: 24px;
+  display: flex;
+  margin-right: 17px;
+  //padding-top: 10px;
+  align-items: flex-start
+}
+
+.checkBoxBlock {
+  box-sizing: border-box;
+  width: 484px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 0;
+
+  div {
+    box-sizing: border-box;
+    width: 237px;
+    //margin: 0 10px 13px 0;
+    align-self: flex-start;
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+input {
+  width: 22px;
+  height: 22px;
+  border-radius: 3px;
+  border: 1px;
+  margin-right: 10px;
+  margin-left: 0;
+}
+
+label {
+  padding-top: 2px;
+  font-size: 17px;
+  line-height: 22px;
+  letter-spacing: 0;
+  text-align: left;
+  color: #000000;
+}

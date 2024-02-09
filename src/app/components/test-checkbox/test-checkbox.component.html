@@ -1,0 +1,15 @@
+<div class="checkBoxContainer">
+  <div class="checkBoxLabel">label</div>
+  <div class="checkBoxBlock">
+    <div *ngFor="let option of checkboxArr">
+      <input type="checkbox" [id]="option.label" value="{{option.label}}">
+      <label for="{{option.label}}"  >{{option.label}}</label>
+    </div>
+    <div>
+      <input type="checkbox" id="selectAll" >
+      <label for="selectAll" style="font-weight: bold">Выбрать все</label>
+    </div>
+
+  </div>
+
+</div>
