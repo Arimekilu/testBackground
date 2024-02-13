@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, forwardRef, Input, OnInit} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {IControl} from "../../interfaces/interfaces";
+import {IControl} from "../../interfaces/iControl.interface";
 
 @Component({
   selector: 'app-test-number',
@@ -35,7 +35,6 @@ export class TestNumberComponent implements ControlValueAccessor, OnInit {
     this.value = insideValue; // html
     this.onChange(insideValue); // уведомить Forms API
     this.onTouched();
-    console.log('update',this.value)
   }
   public registerOnChange(fn: (value: number) => void): void {
     this.onChange = fn;

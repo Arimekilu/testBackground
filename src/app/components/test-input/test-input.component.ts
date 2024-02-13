@@ -1,7 +1,6 @@
 import {ChangeDetectorRef, Component, forwardRef, Input, OnInit} from '@angular/core';
-import {IControl} from "../../interfaces/interfaces";
+import {IControl} from "../../interfaces/iControl.interface";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-
 
 
 @Component({
@@ -16,48 +15,42 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 })
 export class TestInputComponent implements OnInit, ControlValueAccessor {
   @Input() control?: IControl
-  value: string | string[] = ''
-  outputValue = ''
+  public value: string | string[] = ''
   constructor(private readonly changeDetector: ChangeDetectorRef) {
   }
-  private onChange = (value: any) => {};
-  private onTouched = () => {}
-  onInputValueChange(event: Event): void {
+  private onChange = (value: any) => {
+  };
+  private onTouched = () => {
+  }
+  public onInputValueChange(event: Event): void {
     const targetDivElement = event.target as HTMLInputElement;
     const value: string | string[] = targetDivElement.value;
     this.updateValue(value)
     this.onChange(value);
   }
-
-
-  updateValue(insideValue: string | string[]) {
+  public updateValue(insideValue: string | string[]) {
     this.value = insideValue; // html
     this.onChange(insideValue); // уведомить Forms API
     this.onTouched();
-    console.log('update',this.value)
   }
-  registerOnChange(fn: (value: number) => void): void {
+  public registerOnChange(fn: (value: number) => void): void {
     this.onChange = fn;
   }
   public registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
-  writeValue(value: string | string[]): void {
+  public writeValue(value: string | string[]): void {
     if (typeof value === 'string') {
       this.value = value
     }
     this.changeDetector.detectChanges()
   }
-
   ngOnInit(): void {
     if (this.control?.value && typeof this.control.value === "string") {
       this.writeValue(this.control.value)
     } else this.writeValue('')
   }
-
-
-
-  addNewValue() {
+  public addNewValue() {
     if (this.control && Array.isArray(this.control.value) && this.value !== '') {
       if (typeof this.value === "string") {
         this.control.value ? this.control.value.push(this.value) : this.control.value = [this.value]
@@ -66,13 +59,11 @@ export class TestInputComponent implements OnInit, ControlValueAccessor {
       this.value = ''
     }
   }
-
-  deleteValue() {
+  public deleteValue() {
     if (Array.isArray(this.control?.value) && this.control?.value) {
       this.control.value.splice(this.control.value.length - 1, 1)
     }
   }
-
 
   protected readonly Array = Array;
 }

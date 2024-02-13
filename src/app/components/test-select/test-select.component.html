@@ -1,13 +1,14 @@
-<div class="selectContainer">
+<div class="selectContainer" *ngIf="control">
 
-  <div class="selectLabelBlock">label</div>
-
+  <div class="selectLabelBlock">{{control.label}}</div>
 
   <div class="selectInputBlock">
     <div class="custom-select">
       <div class="select" (click)="showOptions = true" [ngClass]="{'openSelect': showOptions}">{{selectedValue}}</div>
       <div class="optionBlock" *ngIf="showOptions">
-        <div [ngClass]="{'selected' : option === selectedValue}" style="margin-bottom: 15px" *ngFor="let option of control?.selectOptions" class="option" (click)="showOptions= false; selectedValue = option; updateValue(option)">
+        <div [ngClass]="{'selected' : option === selectedValue}" style="margin-bottom: 15px"
+             *ngFor="let option of control?.selectOptions" class="option"
+             (click)="showOptions= false; selectedValue = option; updateValue(option)">
           {{option}}
         </div>
       </div>

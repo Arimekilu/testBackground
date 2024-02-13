@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, forwardRef, Input, OnInit} from '@angular/core';
-import {IControl} from "../../interfaces/interfaces";
+import {IControl} from "../../interfaces/iControl.interface";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {DataService} from "../../data-service.service";
 
@@ -15,9 +15,9 @@ import {DataService} from "../../data-service.service";
 })
 export class TestSelectComponent implements OnInit, ControlValueAccessor {
   @Input() control?: IControl
-  showOptions: boolean = false
-  selectedValue: string = ''
-  value = this.selectedValue
+  public showOptions: boolean = false
+  public selectedValue: string = ''
+  public value = this.selectedValue
 
   ngOnInit(): void {
     if (typeof this.control?.value === 'string') {
@@ -25,7 +25,6 @@ export class TestSelectComponent implements OnInit, ControlValueAccessor {
       this.writeValue(this.selectedValue)
     }
   }
-
 
   constructor(private readonly changeDetector: ChangeDetectorRef) {
   }
@@ -35,27 +34,21 @@ export class TestSelectComponent implements OnInit, ControlValueAccessor {
   private onTouched = () => {
   }
 
-
-  updateValue(insideValue: string) {
+  public updateValue(insideValue: string) {
     const value = insideValue
     this.value = insideValue; // html
     this.onChange(value); // уведомить Forms API
     this.onTouched();
-
   }
-
-  registerOnChange(fn: (value: any) => void): void {
+  public registerOnChange(fn: (value: any) => void): void {
     this.onChange = fn;
   }
-
   public registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
-
-  writeValue(value: string): void {
+  public writeValue(value: string): void {
     if (value) {
       this.value = this.selectedValue
-      console.log(this.value)
     }
     this.changeDetector.detectChanges()
   }

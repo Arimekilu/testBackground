@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {IControl} from "./interfaces/interfaces";
+import {IControl} from "./interfaces/iControl.interface";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 import {DataService} from "./data-service.service";
@@ -8,76 +8,80 @@ import {DataService} from "./data-service.service";
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  providers: [DataService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
   title = 'testBackground';
   dynamicForm: FormGroup;
   controls?: IControl[]
-  checkControl?: IControl
-
 
   constructor(private fb: FormBuilder, private dataService: DataService) {
     this.dynamicForm = this.fb.group({});
   }
 
-  ControlText(obj: IControl) {
+  controlText(control: IControl) {
     this.dynamicForm.addControl(
-      obj.name,
-      this.fb.control(obj.value)
+      control.name,
+      this.fb.control(control.value)
     )
+    if (control.validators) {
+      console.log(this.dynamicForm.controls[control.name])
+      this.dynamicForm.controls[control.name].setValidators(control.validators)
+      console.log(this.dynamicForm.controls[control.name])
+    }
   }
 
-  ControlNum(obj: IControl) {
+  controlNum(control: IControl) {
     this.dynamicForm.addControl(
-      obj.name,
-      this.fb.control(obj.value)
+      control.name,
+      this.fb.control(control.value)
     )
+    if (control.validators) {
+      console.log(this.dynamicForm.controls[control.name])
+      this.dynamicForm.controls[control.name].setValidators(control.validators)
+      console.log(this.dynamicForm.controls[control.name])
+    }
   }
 
-  ControlCheck(obj: IControl) {
+  controlCheck(control: IControl) {
     const value = []
-    if (obj.checkbox) {
-      for (const objElement of obj.checkbox) {
+    if (control.checkbox) {
+      for (const objElement of control.checkbox) {
         if (objElement.checked) {
           value.push(objElement.label)
         }
       }
     }
     this.dynamicForm.addControl(
-      obj.name,
-      this.fb.control(value)
+      control.name,
+      this.fb.control(value),
     )
   }
 
-  ControlSelect (obj: IControl) {
+  controlSelect(control: IControl) {
     this.dynamicForm.addControl(
-      obj.name,
-      this.fb.control(obj.value))
+      control.name,
+      this.fb.control(control.value))
   }
 
   ngOnInit(): void {
     this.controls = this.dataService.getData()
-    this.checkControl = this.dataService.getCheckbox()
+
     for (let control of this.controls) {
       if (control.type === 'text') {
-        this.ControlText(control)
+        this.controlText(control)
       } else if (control.type === 'number') {
-        this.ControlNum(control)
+        this.controlNum(control)
       } else if (control.type === 'checkbox') {
-        this.ControlCheck(control)
+        this.controlCheck(control)
       } else if (control.type === 'select') {
-        this.ControlSelect(control)
+        this.controlSelect(control)
       }
     }
   }
 
-  test() {
-    console.log(this.dynamicForm.value)
-  }
-
-  submit($event: MouseEvent) {
+  submit() {
     console.log(this.dynamicForm)
-
   }
 }

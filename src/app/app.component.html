@@ -6,7 +6,7 @@
         <app-test-input [control]="control" [formControlName]="control.name"></app-test-input>
       </ng-template>
       <ng-template ngSwitchCase="number">
-        <app-test-input [control]="control" [formControlName]="control.name"></app-test-input>
+        <app-test-number [control]="control" [formControlName]="control.name"></app-test-number>
       </ng-template>
       <ng-template ngSwitchCase="select">
         <app-test-select [control]="control" [formControlName]="control.name"></app-test-select>
@@ -18,7 +18,7 @@
   </div>
 
   <div class="btnContainer">
-    <button (click)="submit($event)">Отправить</button>
+    <button (click)="submit()" [disabled]="dynamicForm.invalid">Отправить</button>
   </div>
 </form>
 

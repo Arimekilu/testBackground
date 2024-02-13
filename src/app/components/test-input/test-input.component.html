@@ -4,7 +4,6 @@
     {{control.label}}
   </div>
 
-
   <div class="input">
     <div *ngIf="Array.isArray(control.value)">
       <input *ngFor="let value of control.value" class="width300" type="text" [value]="value">
