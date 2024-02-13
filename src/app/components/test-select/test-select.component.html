@@ -7,7 +7,7 @@
     <div class="custom-select">
       <div class="select" (click)="showOptions = true" [ngClass]="{'openSelect': showOptions}">{{selectedValue}}</div>
       <div class="optionBlock" *ngIf="showOptions">
-        <div [ngClass]="{'selected' : option === selectedValue}" *ngFor="let option of control?.selectOptions" class="option" (click)="showOptions= false; selectedValue = option; updateValue(option)" (blur)="showOptions= false">
+        <div [ngClass]="{'selected' : option === selectedValue}" style="margin-bottom: 15px" *ngFor="let option of control?.selectOptions" class="option" (click)="showOptions= false; selectedValue = option; updateValue(option)">
           {{option}}
         </div>
       </div>

@@ -1,7 +1,7 @@
 <form [formGroup]="dynamicForm">
 
-  <div *ngFor="let control of controls">
-    <div [ngSwitch]="control.type">
+  <div *ngFor="let control of controls" >
+    <div [ngSwitch]="control.type" >
       <ng-template ngSwitchCase="text">
         <app-test-input [control]="control" [formControlName]="control.name"></app-test-input>
       </ng-template>
@@ -17,12 +17,9 @@
     </div>
   </div>
 
-
-
-
-
-
-  <button (click)="test()">test</button>
+  <div class="btnContainer">
+    <button (click)="submit($event)">Отправить</button>
+  </div>
 </form>
 
 

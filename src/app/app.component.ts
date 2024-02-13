@@ -76,5 +76,8 @@ export class AppComponent implements OnInit {
     console.log(this.dynamicForm.value)
   }
 
+  submit($event: MouseEvent) {
+    console.log(this.dynamicForm)
 
+  }
 }

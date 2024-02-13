@@ -14,48 +14,42 @@ import {IControl} from "../../interfaces/interfaces";
 })
 export class TestNumberComponent implements ControlValueAccessor, OnInit {
   @Input() control?: IControl
-  value = 0
+  public value = 0
   constructor(private readonly changeDetector: ChangeDetectorRef) {
   }
   private onChange = (value: any) => {};
   private onTouched = () => {}
-  onInputValueChange(event: Event): void {
+  public onInputValueChange(event: Event): void {
     const targetDivElement = event.target as HTMLInputElement;
     const value = +targetDivElement.value;
     this.value = value
     this.onChange(value);
   }
-  increment() {
-    console.log(this.value)
-    ++this.value
-    this.updateValue(++this.value)
+  public increment() {
+      this.updateValue(++this.value)
   }
-  decrement() {
-    console.log(this.value)
-    this.updateValue(--this.value)
+  public decrement() {
+     this.updateValue(--this.value)
   }
-  updateValue(insideValue: number) {
+  private updateValue(insideValue: number) {
     this.value = insideValue; // html
     this.onChange(insideValue); // уведомить Forms API
     this.onTouched();
     console.log('update',this.value)
   }
-  registerOnChange(fn: (value: number) => void): void {
+  public registerOnChange(fn: (value: number) => void): void {
     this.onChange = fn;
   }
   public registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
-  writeValue(value: number): void {
+  public writeValue(value: number): void {
     this.value = value
     this.changeDetector.detectChanges()
   }
-
   ngOnInit(): void {
     if (this.control?.value && typeof this.control.value === "number") {
       this.writeValue(this.control.value)
     } else this.writeValue(0)
   }
-
-
 }

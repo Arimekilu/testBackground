@@ -4,6 +4,8 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-top: 15px;
+  position: relative;
 }
 
 .selectLabelBlock {
@@ -38,16 +40,18 @@
 .optionBlock {
   margin-top: 11px;
   width: 300px;
+  background: white;
   border-left: 1px solid #D7D7D7;
   border-bottom: 5px solid #D7D7D7;
   border-right: 5px solid #D7D7D7;
   border-radius: 3px;
   position: relative;
   z-index: 999999;
-  margin-bottom: 15px;
+  opacity: 1;
 }
 
 .option {
+  position: relative;
   box-sizing: border-box;
   width: 300px;
   height: 26px;
@@ -55,12 +59,11 @@
   align-items: center;
   padding-left: 15px;
   margin: 9px 0;
+  z-index: 10;
 }
 
 .option:hover {
   background: #FFE783;
-  //width: 300px;
-  //height: 44px;
 }
 
 .openSelect {

@@ -13,20 +13,21 @@ import {DataService} from "../../data-service.service";
     multi: true
   }]
 })
-export class TestSelectComponent implements OnInit, ControlValueAccessor{
-  @Input()control?: IControl
+export class TestSelectComponent implements OnInit, ControlValueAccessor {
+  @Input() control?: IControl
   showOptions: boolean = false
-  selectedValue: string  = ''
+  selectedValue: string = ''
   value = this.selectedValue
+
   ngOnInit(): void {
-    if (typeof this.control?.value === 'string' ) {
+    if (typeof this.control?.value === 'string') {
       this.selectedValue = this.control.value
       this.writeValue(this.selectedValue)
     }
   }
 
 
-  constructor(private readonly changeDetector: ChangeDetectorRef, private dataService: DataService) {
+  constructor(private readonly changeDetector: ChangeDetectorRef) {
   }
 
   private onChange = (value: any) => {
@@ -36,7 +37,7 @@ export class TestSelectComponent implements OnInit, ControlValueAccessor{
 
 
   updateValue(insideValue: string) {
-    const value= insideValue
+    const value = insideValue
     this.value = insideValue; // html
     this.onChange(value); // уведомить Forms API
     this.onTouched();
@@ -58,11 +59,4 @@ export class TestSelectComponent implements OnInit, ControlValueAccessor{
     }
     this.changeDetector.detectChanges()
   }
-
-
-
-
-
-
-
 }
