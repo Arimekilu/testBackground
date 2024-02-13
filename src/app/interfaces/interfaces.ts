@@ -8,5 +8,6 @@ export interface IControl {
   placeholder?: string
   value?: string | number | string[],
   checkbox?: {checked: boolean, label: string}[],
+  selectOptions?: string[]
   validators?: Validators[]
 }

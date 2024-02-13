@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {IControl} from "./interfaces/interfaces";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {numInputJSON} from "./jsonTest";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+
 import {DataService} from "./data-service.service";
 
 @Component({
@@ -10,7 +10,7 @@ import {DataService} from "./data-service.service";
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'testBackground';
   dynamicForm: FormGroup;
   controls?: IControl[]
@@ -18,31 +18,56 @@ export class AppComponent implements OnInit{
 
 
   constructor(private fb: FormBuilder, private dataService: DataService) {
-    this.dynamicForm = this.fb.group({
-    });
+    this.dynamicForm = this.fb.group({});
   }
 
-  Control (obj: IControl ) {
+  ControlText(obj: IControl) {
     this.dynamicForm.addControl(
       obj.name,
       this.fb.control(obj.value)
     )
   }
-  ControlNum (obj: IControl ) {
+
+  ControlNum(obj: IControl) {
     this.dynamicForm.addControl(
       obj.name,
       this.fb.control(obj.value)
     )
+  }
+
+  ControlCheck(obj: IControl) {
+    const value = []
+    if (obj.checkbox) {
+      for (const objElement of obj.checkbox) {
+        if (objElement.checked) {
+          value.push(objElement.label)
+        }
+      }
+    }
+    this.dynamicForm.addControl(
+      obj.name,
+      this.fb.control(value)
+    )
+  }
+
+  ControlSelect (obj: IControl) {
+    this.dynamicForm.addControl(
+      obj.name,
+      this.fb.control(obj.value))
   }
 
   ngOnInit(): void {
-   this.controls = this.dataService.getData()
+    this.controls = this.dataService.getData()
     this.checkControl = this.dataService.getCheckbox()
-    for (let stringControlElement of this.controls) {
-      if (stringControlElement.type === 'text') {
-        this.Control(stringControlElement)
-      } else if (stringControlElement.type === 'number') {
-        this.ControlNum(stringControlElement)
+    for (let control of this.controls) {
+      if (control.type === 'text') {
+        this.ControlText(control)
+      } else if (control.type === 'number') {
+        this.ControlNum(control)
+      } else if (control.type === 'checkbox') {
+        this.ControlCheck(control)
+      } else if (control.type === 'select') {
+        this.ControlSelect(control)
       }
     }
   }

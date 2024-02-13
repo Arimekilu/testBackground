@@ -3,13 +3,13 @@
   <div class="checkBoxLabel">{{control.label}}</div>
 
   <form class="checkBoxBlock" >
-    <div *ngFor="let option of control.checkbox">
-      <input type="checkbox" [id]="option.label" value="{{option.label}}" [checked]="option.checked">
+    <div *ngFor="let option of control.checkbox"  >
+      <input [type]="control.type" [id]="option.label" (click)="onInputValueChange($event)" value="{{option.label}}" [checked]="option.checked">
       <label for="{{option.label}}"  >{{option.label}}</label>
     </div>
 
-    <div>
-      <input type="checkbox" id="selectAll" >
+    <div (click)="selectAll($event)">
+      <input type="checkbox" id="selectAll" [checked]="false" >
       <label for="selectAll" style="font-weight: bold">Выбрать все</label>
     </div>
   </form>

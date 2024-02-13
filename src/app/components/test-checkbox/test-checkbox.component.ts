@@ -1,20 +1,23 @@
-import {ChangeDetectorRef, Component, Input} from '@angular/core';
+import {ChangeDetectorRef, Component, forwardRef, Input, OnInit} from '@angular/core';
 import {IControl} from "../../interfaces/interfaces";
 import {DataService} from "../../data-service.service";
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 
 @Component({
   selector: 'app-test-checkbox',
   templateUrl: './test-checkbox.component.html',
-  styleUrls: ['./test-checkbox.component.scss']
+  styleUrls: ['./test-checkbox.component.scss'],
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => TestCheckboxComponent),
+    multi: true
+  }]
 })
-export class TestCheckboxComponent {
+export class TestCheckboxComponent implements ControlValueAccessor, OnInit {
   @Input() control?: IControl
-  value: any
-  valueArr:Map<string, string> = new Map()
+  value: string[] = []
+  valueArr: Set<string> = new Set()
 
-  test() {
-    console.log()
-  }
 
   constructor(private readonly changeDetector: ChangeDetectorRef, private dataService: DataService) {
   }
@@ -27,14 +30,23 @@ export class TestCheckboxComponent {
   onInputValueChange(event: Event): void {
     const targetDivElement = event.target as HTMLInputElement;
     const value: any = targetDivElement.value;
-    this.updateValue(value)
-    this.onChange(value);
+    console.log(targetDivElement)
+    console.log(this.valueArr)
+    if (targetDivElement.checked){
+      this.valueArr.add(value)
+    } else if (!targetDivElement.checked) {
+      this.valueArr.delete(value)
+    }
+    this.updateValue(this.valueArr)
+    this.onChange([...this.valueArr]);
+    console.log(this.valueArr)
   }
 
 
-  updateValue(insideValue: any) {
-    this.value = insideValue; // html
-    this.onChange(insideValue); // уведомить Forms API
+  updateValue(insideValue: Set<string>) {
+    const value= [...insideValue]
+    this.value = value; // html
+    this.onChange(value); // уведомить Forms API
     this.onTouched();
 
   }
@@ -47,21 +59,38 @@ export class TestCheckboxComponent {
     this.onTouched = fn;
   }
 
-  writeValue(value: any): void {
-    this.value = value
+  writeValue(value: Set<string>): void {
+    if (value) {
+      console.log('writeValue')
+      console.log(value)
+      this.value = [...value]
+      console.log(this.value)
+    }
     this.changeDetector.detectChanges()
   }
 
   ngOnInit(): void {
     const box = this.dataService.getCheckbox()
-    this.writeValue(box.checkbox)
-    this.value = []
     if (box.checkbox)
       for (const box1 of box.checkbox) {
         if (box1.checked) {
-          this.value.push(box1.label)
+          this.valueArr.add(box1.label)
         }
       }
-    console.log(this.value)
+    console.log('Oninit')
+    this.writeValue(this.valueArr)
+    this.updateValue(this.valueArr)
+  }
+
+  selectAll(event: Event) {
+    const targetDivElement = event.target as HTMLInputElement;
+    const checked = targetDivElement.checked
+    if (this.control?.checkbox) {
+      for (const select of this.control?.checkbox) {
+        select.checked = checked;
+        checked ? this.valueArr.add(select.label) : this.valueArr.delete(select.label)
+      }
+    }
+    this.updateValue(this.valueArr)
   }
 }

@@ -9,15 +9,15 @@
         <app-test-input [control]="control" [formControlName]="control.name"></app-test-input>
       </ng-template>
       <ng-template ngSwitchCase="select">
-        <app-test-input [control]="control" [formControlName]="control.name"></app-test-input>
+        <app-test-select [control]="control" [formControlName]="control.name"></app-test-select>
       </ng-template>
       <ng-template ngSwitchCase="checkbox">
-        <app-test-input [control]="control" [formControlName]="control.name"></app-test-input>
+        <app-test-checkbox [control]="control" [formControlName]="control.name"></app-test-checkbox>
       </ng-template>
     </div>
   </div>
 
-  <app-test-checkbox [control]="checkControl"></app-test-checkbox>
+
 
 
 
