@@ -1,5 +1,28 @@
-<app-test-select></app-test-select>
+<form [formGroup]="dynamicForm">
 
-<app-test-number [numberInputComponent]="testNum"></app-test-number>
+  <div *ngFor="let control of controls">
+    <div [ngSwitch]="control.type">
+      <ng-template ngSwitchCase="text">
+        <app-test-input [control]="control" [formControlName]="control.name"></app-test-input>
+      </ng-template>
+      <ng-template ngSwitchCase="number">
+        <app-test-input [control]="control" [formControlName]="control.name"></app-test-input>
+      </ng-template>
+      <ng-template ngSwitchCase="select">
+        <app-test-input [control]="control" [formControlName]="control.name"></app-test-input>
+      </ng-template>
+      <ng-template ngSwitchCase="checkbox">
+        <app-test-input [control]="control" [formControlName]="control.name"></app-test-input>
+      </ng-template>
+    </div>
+  </div>
 
-<app-test-checkbox></app-test-checkbox>
+  <app-test-checkbox [control]="checkControl"></app-test-checkbox>
+
+
+
+
+  <button (click)="test()">test</button>
+</form>
+
+

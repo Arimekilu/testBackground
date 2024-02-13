@@ -1,6 +1,6 @@
-import {Component, forwardRef, Input} from '@angular/core';
+import {ChangeDetectorRef, Component, forwardRef, Input, OnInit} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {numberInputComponent} from "../../interfaces/interfaces";
+import {IControl} from "../../interfaces/interfaces";
 
 @Component({
   selector: 'app-test-number',
@@ -12,41 +12,50 @@ import {numberInputComponent} from "../../interfaces/interfaces";
     multi: true
   }]
 })
-export class TestNumberComponent implements ControlValueAccessor {
-  @Input()numberInputComponent?: numberInputComponent
-  @Input()
-  set value(val) {
-    this._value = val;
-    this.onChange(this._value);
+export class TestNumberComponent implements ControlValueAccessor, OnInit {
+  @Input() control?: IControl
+  value = 0
+  constructor(private readonly changeDetector: ChangeDetectorRef) {
   }
-  public name?: string = this.numberInputComponent?.name
-  private _value: number = 0
-
-  get value() {
-    return this._value;
+  private onChange = (value: any) => {};
+  private onTouched = () => {}
+  onInputValueChange(event: Event): void {
+    const targetDivElement = event.target as HTMLInputElement;
+    const value = +targetDivElement.value;
+    this.value = value
+    this.onChange(value);
   }
-
-  onChange(_: any) {}
-
   increment() {
-    this.value++
+    console.log(this.value)
+    ++this.value
+    this.updateValue(++this.value)
   }
   decrement() {
-    this.value--
+    console.log(this.value)
+    this.updateValue(--this.value)
   }
-    registerOnChange(fn: any){
-      console.log('registerOnChange', fn)
-      this.onChange = fn;
-    }
-
-
-  registerOnTouched(fn: any): void {
-    console.log('OnTouched', fn)
+  updateValue(insideValue: number) {
+    this.value = insideValue; // html
+    this.onChange(insideValue); // уведомить Forms API
+    this.onTouched();
+    console.log('update',this.value)
   }
-
+  registerOnChange(fn: (value: number) => void): void {
+    this.onChange = fn;
+  }
+  public registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
   writeValue(value: number): void {
-    if (this.numberInputComponent?.value) {
-      this.value = this.numberInputComponent.value
-    } else this.value = 0
+    this.value = value
+    this.changeDetector.detectChanges()
   }
+
+  ngOnInit(): void {
+    if (this.control?.value && typeof this.control.value === "number") {
+      this.writeValue(this.control.value)
+    } else this.writeValue(0)
+  }
+
+
 }

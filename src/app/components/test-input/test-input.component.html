@@ -1,20 +1,20 @@
-<div class="inputContainer" *ngIf="inputComp">
+<div class="inputContainer" *ngIf="control">
 
   <div class="name">
-    {{inputComp.name}}
+    {{control.label}}
   </div>
 
 
   <div class="input">
-    <div *ngFor="let value of inputComp.valueArr">
-      <input class="width300" type="text" [value]="value">
+    <div *ngIf="Array.isArray(control.value)">
+      <input *ngFor="let value of control.value" class="width300" type="text" [value]="value">
     </div>
     <div class="flexRow ">
-      <input [ngClass]="{width300: inputComp.isArray, width500: !inputComp.isArray}" style="margin-right: 15px"
-             type="text" id="input" [(ngModel)]="inputValue" [placeholder]="inputComp.placeholder || ''">
+      <input [ngClass]="{width300: control.isArray, width500: !control.isArray}" style="margin-right: 15px"
+             type="text" id="input" [value]="value" (input)="onInputValueChange($event)" [placeholder]="control.placeholder || ''">
       <div>
-        <div class="button" *ngIf="inputComp.isArray">
-          <div *ngIf="inputComp.valueArr?.length !== 0 ">
+        <div class="button" *ngIf="control.isArray">
+          <div *ngIf="control.value">
             <button class="deleteTextBtn" (click)="deleteValue()">
               +
             </button>
@@ -26,8 +26,6 @@
         </div>
       </div>
     </div>
-    <label for="input" *ngIf="inputComp.label">{{inputComp.label}}</label>
+    <label for="input" *ngIf="control.placeholder">{{control.placeholder}}</label>
   </div>
-
-
 </div>

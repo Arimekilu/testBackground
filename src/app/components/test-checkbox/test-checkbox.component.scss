@@ -44,6 +44,14 @@ input {
   margin-left: 0;
 }
 
+input:checked {
+  background-color: #FFE783;
+  box-shadow: 1px 1px 5px red;
+}
+.container input:checked ~ .checkmark {
+  background-color: #FFE783;
+}
+
 label {
   padding-top: 2px;
   font-size: 17px;

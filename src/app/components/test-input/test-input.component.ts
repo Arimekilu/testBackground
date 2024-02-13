@@ -1,6 +1,7 @@
-import {Component, forwardRef, Input, OnInit} from '@angular/core';
-import {InputComponent} from "../../interfaces/interfaces";
+import {ChangeDetectorRef, Component, forwardRef, Input, OnInit} from '@angular/core';
+import {IControl} from "../../interfaces/interfaces";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
+
 
 
 @Component({
@@ -14,61 +15,64 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
   }]
 })
 export class TestInputComponent implements OnInit, ControlValueAccessor {
-  @Input() InputComponent?: InputComponent
-  inputComp?: InputComponent
-  inputValue: string = ''
-
-  get value() {
-    return this.inputValue;
+  @Input() control?: IControl
+  value: string | string[] = ''
+  outputValue = ''
+  constructor(private readonly changeDetector: ChangeDetectorRef) {
+  }
+  private onChange = (value: any) => {};
+  private onTouched = () => {}
+  onInputValueChange(event: Event): void {
+    const targetDivElement = event.target as HTMLInputElement;
+    const value: string | string[] = targetDivElement.value;
+    this.updateValue(value)
+    this.onChange(value);
   }
 
-  set value(val: any) {
-    this.inputValue = val
-    this.registerOnChange(val)
-  }
 
-  constructor() {
-    console.log(this.InputComponent)
-    if (this.InputComponent) {
-      this.inputComp = this.InputComponent
+  updateValue(insideValue: string | string[]) {
+    this.value = insideValue; // html
+    this.onChange(insideValue); // уведомить Forms API
+    this.onTouched();
+    console.log('update',this.value)
+  }
+  registerOnChange(fn: (value: number) => void): void {
+    this.onChange = fn;
+  }
+  public registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+  writeValue(value: string | string[]): void {
+    if (typeof value === 'string') {
+      this.value = value
     }
+    this.changeDetector.detectChanges()
   }
 
   ngOnInit(): void {
-    console.log(this.InputComponent)
-    this.inputComp = this.InputComponent
+    if (this.control?.value && typeof this.control.value === "string") {
+      this.writeValue(this.control.value)
+    } else this.writeValue('')
   }
 
-
-  registerOnChange(fn: any): void {
-  }
-
-  registerOnTouched(fn: any): void {
-  }
-
-  writeValue(obj: string | string[]): void {
-    if (this.inputComp) {
-      if (Array.isArray(obj)) {
-        this.inputComp.valueArr = obj
-      } else this.inputComp.value = obj
-    }
-  }
 
 
   addNewValue() {
-    if (this.inputComp && this.inputComp.isArray && this.value !== '') {
-      this.inputComp.valueArr ? this.inputComp.valueArr.push(this.value) : this.inputComp.valueArr = [this.value]
-      this.inputValue = ''
+    if (this.control && Array.isArray(this.control.value) && this.value !== '') {
+      if (typeof this.value === "string") {
+        this.control.value ? this.control.value.push(this.value) : this.control.value = [this.value]
+      }
+      this.updateValue(this.control.value)
+      this.value = ''
     }
-  }
-
-
-  setDisabledState(isDisabled: boolean): void {
   }
 
   deleteValue() {
-    if (this.inputComp?.valueArr) {
-      this.inputComp.valueArr.splice(this.inputComp.valueArr.length - 1, 1)
+    if (Array.isArray(this.control?.value) && this.control?.value) {
+      this.control.value.splice(this.control.value.length - 1, 1)
     }
   }
+
+
+  protected readonly Array = Array;
 }

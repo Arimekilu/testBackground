@@ -1,9 +1,9 @@
-<div class="inputNumberContainer" *ngIf="numberInputComponent">
+<div class="inputNumberContainer" *ngIf="control" >
 
-  <div class="inputNumberLabel ">{{numberInputComponent.name}}</div>
+  <div class="inputNumberLabel ">{{control.label}}</div>
 
   <div class="inputNumberInput ">
-    <input type="number"  [(ngModel)]="value">
+    <input [type]="control.type" [value]="value" (input)="onInputValueChange($event)">
   </div>
 
   <div class="buttonBlock ">

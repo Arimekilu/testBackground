@@ -1,64 +1,54 @@
-import {Component, OnInit} from '@angular/core';
-import {InputComponent, numberInputComponent} from "./interfaces/interfaces";
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {IControl} from "./interfaces/interfaces";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {numInputJSON} from "./jsonTest";
+import {DataService} from "./data-service.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit{
   title = 'testBackground';
+  dynamicForm: FormGroup;
+  controls?: IControl[]
+  checkControl?: IControl
 
-  input: InputComponent = {
-    isArray: true,
-    name: 'testName',
-    label: 'testLabel',
-    placeholder: 'testPleaceholder',
-    // value?: string,
-    valueArr: ['test', "test"]
+
+  constructor(private fb: FormBuilder, private dataService: DataService) {
+    this.dynamicForm = this.fb.group({
+    });
   }
 
-  inputNoArr: InputComponent = {
-    isArray: false,
-    name: 'noArrName',
-    label: 'noArrLabel',
-    placeholder: 'noArrPleaceholder',
-    // value?: string,
-    // valueArr?: string[]
+  Control (obj: IControl ) {
+    this.dynamicForm.addControl(
+      obj.name,
+      this.fb.control(obj.value)
+    )
   }
-
-  testNum: numberInputComponent = {
-    name: 'имечко',
-    value: 42
-  }
-
-
-  form: FormGroup;
-
-
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-    })
-
-  }
-
-  logData() {
-    console.log(this.form.value)
-  }
-
-  Control (obj: numberInputComponent ) {
-   // return  obj.name: new FormControl (obj.value)
-
+  ControlNum (obj: IControl ) {
+    this.dynamicForm.addControl(
+      obj.name,
+      this.fb.control(obj.value)
+    )
   }
 
   ngOnInit(): void {
-    console.log(numInputJSON)
-    console.log(JSON.parse(numInputJSON))
-    const newInput: numberInputComponent = JSON.parse(numInputJSON)
+   this.controls = this.dataService.getData()
+    this.checkControl = this.dataService.getCheckbox()
+    for (let stringControlElement of this.controls) {
+      if (stringControlElement.type === 'text') {
+        this.Control(stringControlElement)
+      } else if (stringControlElement.type === 'number') {
+        this.ControlNum(stringControlElement)
+      }
+    }
+  }
 
-
+  test() {
+    console.log(this.dynamicForm.value)
   }
 
 

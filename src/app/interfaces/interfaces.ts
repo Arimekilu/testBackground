@@ -1,13 +1,12 @@
-export interface InputComponent {
-  isArray: boolean,
-  name: string,
-  label?: string,
-  placeholder?: string,
-  value?: string,
-  valueArr?: string[]
-}
+import {Validators} from "@angular/forms";
 
-export interface numberInputComponent {
+export interface IControl {
+  type: string,
+  isArray?: boolean
   name: string,
-  value?: number
+  label: string,
+  placeholder?: string
+  value?: string | number | string[],
+  checkbox?: {checked: boolean, label: string}[],
+  validators?: Validators[]
 }
