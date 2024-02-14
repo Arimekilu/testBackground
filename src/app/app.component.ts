@@ -19,9 +19,7 @@ export class AppComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private dataService: DataService) {
     this.dynamicForm = this.fb.group({});
-
   }
-
   controlText(control: IControl) {
     this.dynamicForm.addControl(
       control.name,
@@ -31,7 +29,6 @@ export class AppComponent implements OnInit {
       this.dynamicForm.controls[control.name].setValidators(control.validators)
     }
   }
-
   controlNum(control: IControl) {
     this.dynamicForm.addControl(
       control.name,
@@ -41,7 +38,6 @@ export class AppComponent implements OnInit {
       this.dynamicForm.controls[control.name].setValidators(control.validators)
     }
   }
-
   controlCheck(control: IControl) {
     const value = []
     if (control.checkbox) {
@@ -87,7 +83,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataService.getControls().subscribe((res) => {
-      console.log('res', res)
       this.controls = res
       this.render()
       this.loading = false
