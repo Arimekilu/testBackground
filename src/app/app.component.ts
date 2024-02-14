@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {IControl} from "./interfaces/iControl.interface";
 import {FormBuilder, FormGroup} from "@angular/forms";
-
 import {DataService} from "./data-service.service";
+
 
 @Component({
   selector: 'app-root',
@@ -15,9 +15,11 @@ export class AppComponent implements OnInit {
   title = 'testBackground';
   dynamicForm: FormGroup;
   controls?: IControl[]
+  loading: boolean = true
 
   constructor(private fb: FormBuilder, private dataService: DataService) {
     this.dynamicForm = this.fb.group({});
+
   }
 
   controlText(control: IControl) {
@@ -67,20 +69,31 @@ export class AppComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.controls = this.dataService.getData()
-
-    for (let control of this.controls) {
-      if (control.type === 'text') {
-        this.controlText(control)
-      } else if (control.type === 'number') {
-        this.controlNum(control)
-      } else if (control.type === 'checkbox') {
-        this.controlCheck(control)
-      } else if (control.type === 'select') {
-        this.controlSelect(control)
+  render() {
+    if (this.controls) {
+      for (let control of this.controls) {
+        if (control.type === 'text') {
+          this.controlText(control)
+        } else if (control.type === 'number') {
+          this.controlNum(control)
+        } else if (control.type === 'checkbox') {
+          this.controlCheck(control)
+        } else if (control.type === 'select') {
+          this.controlSelect(control)
+        }
       }
     }
+  }
+
+  ngOnInit(): void {
+    this.dataService.getControls().subscribe((res) => {
+      console.log('res', res)
+      this.controls = res
+      this.render()
+      this.loading = false
+    }, ((error) => {
+      console.log(error)
+    }))
   }
 
   submit() {

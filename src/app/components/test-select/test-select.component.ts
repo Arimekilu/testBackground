@@ -1,7 +1,7 @@
-import {ChangeDetectorRef, Component, forwardRef, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, forwardRef, Inject, Injector, INJECTOR, Input, OnInit} from '@angular/core';
 import {IControl} from "../../interfaces/iControl.interface";
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {DataService} from "../../data-service.service";
+import {ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl} from "@angular/forms";
+
 
 @Component({
   selector: 'app-test-select',
@@ -18,15 +18,17 @@ export class TestSelectComponent implements OnInit, ControlValueAccessor {
   public showOptions: boolean = false
   public selectedValue: string = ''
   public value = this.selectedValue
+  _control?: NgControl;
 
   ngOnInit(): void {
+    this._control = this.injector.get(NgControl);
     if (typeof this.control?.value === 'string') {
       this.selectedValue = this.control.value
       this.writeValue(this.selectedValue)
     }
   }
 
-  constructor(private readonly changeDetector: ChangeDetectorRef) {
+  constructor(private readonly changeDetector: ChangeDetectorRef, @Inject(INJECTOR) private injector: Injector) {
   }
 
   private onChange = (value: any) => {

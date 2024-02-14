@@ -1,25 +1,28 @@
-<form [formGroup]="dynamicForm">
-  <h1>Анкета</h1>
-  <div *ngFor="let control of controls" >
-    <div [ngSwitch]="control.type" >
-      <ng-template ngSwitchCase="text">
-        <app-test-input [control]="control" [formControlName]="control.name"></app-test-input>
-      </ng-template>
-      <ng-template ngSwitchCase="number">
-        <app-test-number [control]="control" [formControlName]="control.name"></app-test-number>
-      </ng-template>
-      <ng-template ngSwitchCase="select">
-        <app-test-select [control]="control" [formControlName]="control.name"></app-test-select>
-      </ng-template>
-      <ng-template ngSwitchCase="checkbox">
-        <app-test-checkbox [control]="control" [formControlName]="control.name"></app-test-checkbox>
-      </ng-template>
+<h1 *ngIf="loading; else loaded">Loading...</h1>
+<ng-template #loaded>
+  <form [formGroup]="dynamicForm">
+    <h1>Анкета</h1>
+    <div *ngFor="let control of controls">
+      <div [ngSwitch]="control.type">
+        <ng-template ngSwitchCase="text">
+          <app-test-input [control]="control" [formControlName]="control.name"></app-test-input>
+        </ng-template>
+        <ng-template ngSwitchCase="number">
+          <app-test-number [control]="control" [formControlName]="control.name"></app-test-number>
+        </ng-template>
+        <ng-template ngSwitchCase="select">
+          <app-test-select [control]="control" [formControlName]="control.name"></app-test-select>
+        </ng-template>
+        <ng-template ngSwitchCase="checkbox">
+          <app-test-checkbox [control]="control" [formControlName]="control.name"></app-test-checkbox>
+        </ng-template>
+      </div>
     </div>
-  </div>
 
-  <div class="btnContainer">
-    <button (click)="submit()" [disabled]="dynamicForm.invalid">Отправить</button>
-  </div>
-</form>
+    <div class="btnContainer">
+      <button (click)="submit()" [disabled]="dynamicForm.invalid">Отправить</button>
+    </div>
+  </form>
+</ng-template>
 
 
