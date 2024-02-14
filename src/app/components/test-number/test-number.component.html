@@ -1,6 +1,8 @@
-<div class="inputNumberContainer" *ngIf="control" >
+<div class="inputNumberContainer" *ngIf="control">
 
-  <div class="inputNumberLabel ">{{control.label}}</div>
+  <div class="inputNumberLabel ">{{control.label}}
+    <sup *ngIf="control.validators" [ngClass]="{red: _control?.invalid }">*</sup>
+  </div>
 
   <div class="inputNumberInput ">
     <input [type]="control.type" [value]="value" (input)="onInputValueChange($event)">

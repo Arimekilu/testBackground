@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {IControl} from "./interfaces/iControl.interface";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 import {DataService} from "./data-service.service";
 
@@ -26,9 +26,7 @@ export class AppComponent implements OnInit {
       this.fb.control(control.value)
     )
     if (control.validators) {
-      console.log(this.dynamicForm.controls[control.name])
       this.dynamicForm.controls[control.name].setValidators(control.validators)
-      console.log(this.dynamicForm.controls[control.name])
     }
   }
 
@@ -38,9 +36,7 @@ export class AppComponent implements OnInit {
       this.fb.control(control.value)
     )
     if (control.validators) {
-      console.log(this.dynamicForm.controls[control.name])
       this.dynamicForm.controls[control.name].setValidators(control.validators)
-      console.log(this.dynamicForm.controls[control.name])
     }
   }
 
@@ -55,14 +51,20 @@ export class AppComponent implements OnInit {
     }
     this.dynamicForm.addControl(
       control.name,
-      this.fb.control(value),
+      this.fb.control(value)
     )
+    if (control.validators) {
+      this.dynamicForm.controls[control.name].setValidators(control.validators)
+    }
   }
 
   controlSelect(control: IControl) {
     this.dynamicForm.addControl(
       control.name,
       this.fb.control(control.value))
+    if (control.validators) {
+      this.dynamicForm.controls[control.name].setValidators(control.validators)
+    }
   }
 
   ngOnInit(): void {

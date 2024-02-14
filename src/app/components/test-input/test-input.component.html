@@ -1,12 +1,12 @@
 <div class="inputContainer" *ngIf="control">
 
   <div class="name">
-    {{control.label}}
+    {{control.label}}<sup *ngIf="control.validators" [ngClass]="{red: _control?.invalid }">*</sup>
   </div>
 
   <div class="input">
     <div *ngIf="Array.isArray(control.value)">
-      <input *ngFor="let value of control.value" class="width300" type="text" [value]="value">
+      <input *ngFor="let value of control.value" class="width300" type="text" [value]="value" >
     </div>
     <div class="flexRow ">
       <input [ngClass]="{width300: control.isArray, width500: !control.isArray}" style="margin-right: 15px"

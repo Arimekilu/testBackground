@@ -13,6 +13,7 @@ body {
   margin: 0;
   padding-top: 87px;
   padding-left: 135px;
+  padding-bottom: 106px;
   font-family: PT Sans, sans-serif;
   font-size: 17px;
   line-height: 22px;
@@ -79,4 +80,8 @@ label {
   align-items: center;
   padding-left: 15px;
   margin: 9px 0;
+}
+
+.red {
+  color: #FF0000
 }

@@ -1,5 +1,5 @@
-import {ChangeDetectorRef, Component, forwardRef, Input, OnInit} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {ChangeDetectorRef, Component, forwardRef, Inject, Injector, INJECTOR, Input, OnInit} from '@angular/core';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl} from "@angular/forms";
 import {IControl} from "../../interfaces/iControl.interface";
 
 @Component({
@@ -15,7 +15,8 @@ import {IControl} from "../../interfaces/iControl.interface";
 export class TestNumberComponent implements ControlValueAccessor, OnInit {
   @Input() control?: IControl
   public value = 0
-  constructor(private readonly changeDetector: ChangeDetectorRef) {
+  _control?: NgControl;
+  constructor(private readonly changeDetector: ChangeDetectorRef, @Inject(INJECTOR) private injector: Injector) {
   }
   private onChange = (value: any) => {};
   private onTouched = () => {}
@@ -47,6 +48,7 @@ export class TestNumberComponent implements ControlValueAccessor, OnInit {
     this.changeDetector.detectChanges()
   }
   ngOnInit(): void {
+    this._control = this.injector.get(NgControl);
     if (this.control?.value && typeof this.control.value === "number") {
       this.writeValue(this.control.value)
     } else this.writeValue(0)

@@ -1,5 +1,5 @@
 <form [formGroup]="dynamicForm">
-
+  <h1>Анкета</h1>
   <div *ngFor="let control of controls" >
     <div [ngSwitch]="control.type" >
       <ng-template ngSwitchCase="text">

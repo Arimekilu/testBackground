@@ -8,5 +8,26 @@
     border: none;
     border-radius: 3px;
     background: #FFE783;
+    font-family: PT Sans, sans-serif;
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: 0;
+    text-align: center;
   }
+
+  button:disabled {
+    font-family: PT Sans, sans-serif;
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: 0;
+    text-align: center;
+  }
+
+  button:hover {
+    opacity: 70%;
+  }
+}
+
+h1 {
+  margin-bottom: 42px;
 }

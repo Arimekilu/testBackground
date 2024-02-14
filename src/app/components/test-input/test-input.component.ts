@@ -1,6 +1,6 @@
-import {ChangeDetectorRef, Component, forwardRef, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, forwardRef, Inject, INJECTOR, Injector, Input, OnInit} from '@angular/core';
 import {IControl} from "../../interfaces/iControl.interface";
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl} from "@angular/forms";
 
 
 @Component({
@@ -10,13 +10,14 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => TestInputComponent),
-    multi: true
+    multi: true,
   }]
 })
 export class TestInputComponent implements OnInit, ControlValueAccessor {
   @Input() control?: IControl
   public value: string | string[] = ''
-  constructor(private readonly changeDetector: ChangeDetectorRef) {
+  _control?: NgControl;
+   constructor(private readonly changeDetector: ChangeDetectorRef, @Inject(INJECTOR) private injector: Injector) {
   }
   private onChange = (value: any) => {
   };
@@ -46,6 +47,7 @@ export class TestInputComponent implements OnInit, ControlValueAccessor {
     this.changeDetector.detectChanges()
   }
   ngOnInit(): void {
+    this._control = this.injector.get(NgControl);
     if (this.control?.value && typeof this.control.value === "string") {
       this.writeValue(this.control.value)
     } else this.writeValue('')

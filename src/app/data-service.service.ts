@@ -19,12 +19,20 @@ export class DataService {
     }, {
       type: 'number',
       name: 'age',
-      label: 'Введите возраст'
+      label: 'Введите возраст',
+      validators: [
+        Validators.required,
+        Validators.minLength(2)
+      ]
     }, {
       type: 'text',
       isArray: false,
       name: 'testName',
       label: 'testLabel',
+      validators: [
+        Validators.required,
+        Validators.minLength(2)
+      ]
     }, {
       type: 'checkbox',
       name: 'testCheck',
