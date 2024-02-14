@@ -35,7 +35,6 @@ export class DataService {
       label: 'Возраст',
       validators: [
         Validators.required,
-        Validators.min(10)
       ]
     }, {
       type: 'checkbox',

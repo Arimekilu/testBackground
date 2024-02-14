@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {IControl} from "./interfaces/iControl.interface";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {DataService} from "./data-service.service";
+import {DataService} from "./data.service";
 
 
 @Component({

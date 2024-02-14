@@ -1,6 +1,5 @@
 import {ChangeDetectorRef, Component, forwardRef, Input, OnInit} from '@angular/core';
 import {IControl} from "../../interfaces/iControl.interface";
-import {DataService} from "../../data-service.service";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 
 @Component({
